@@ -1,38 +1,27 @@
 # Dots and Boxes
 
-## v1.0
+## Progress
 -   turn based is working
 -   can click to make lines in a horizontal line
-## v1.1
 -	added second row
 -	can make vertical lines
 -	base case for making a specific box done
 -	added counter for boxes
-## v1.2
 -   added second case for making boxes with vertical lines
-## v1.3
 -   styling fixes for the dots
-## v1.4
 -  cases where box made with vertical line should be finished
 -  game playable if only making boxes with vertical line (no winner yet)
-
-## v1.5
 -   third row added
 -   vertical line boxes added for 3rd row
-## v1.6
 -   horizontal cases finished
-## v1.7
 -   code clean up (~200 lines not needed)
-## v1.8
 -  more code clean up
 -  winner algorithm finished
 -  styling changes
-
-## v1.9
 -  base cases for horizontal rectangles done
+-  base cases for vertical rectangles done
 
 ## Todo
--  complete vertical line rectangle base cases
 -  add other cases for rectangles
 -  add more rows
 

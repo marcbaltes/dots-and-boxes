@@ -383,9 +383,10 @@
                   }
 
                   // check for rectangles after squares have been checked
-                  if(h && !(topBox || botBox)){
+                  if(h){
                      var startId = id;
                      var boxesMade = 0;
+                     var j1 = j;
 
                      // horizontal line placed base case 1
                      // check bottom line and the two vertical lines around it
@@ -431,6 +432,7 @@
                      endId1Buffer = (j-1) + " " + b + " " + c;
                      endLine1Buffer = document.getElementById(endId1Buffer);
                      rectangle = true;
+                     j = j1;
                      if(endLine1Buffer != null && endLine1Buffer.className == "line-hor"){
                         while(endLine1Buffer != null && endLine1Buffer.className == "line-hor" && rectangle){
                            var endId1Buffer = (j-1) + " " + b + " " + c;
@@ -439,15 +441,12 @@
                            var tRightId = (j-1) + " " + j + " " + k + " v";
                            var tLeftLine = document.getElementById(tLeftId);
                            var tRightLine = document.getElementById(tRightId);
-                           console.log(tLeftId, tRightId);
-                           console.log(tLeftLine, endLine1Buffer, tRightLine);
                            if(tLeftLine == null || tLeftLine.className == "line-ver" || tRightLine == null || tRightLine.className == "line-ver"){
                               rectangle = false;
                            }
                            j--;
                         }
                         if(rectangle){
-                           console.log("rect");
                            var start = startId.split(" ");
                            var n = parseInt(start[0], 10);
                            var m = parseInt(start[1], 10);
@@ -460,6 +459,93 @@
                               else{
                                  document.getElementById(n + " " + m).className = "square-blue";
                                  document.getElementById(n + " " + m + " " + (m+1)).className = "line-hor-blue";
+                                 boxesMade++;
+                              } 
+                           }
+                        }
+                     }
+                     if(this.state.player % 2 == 0){
+                        this.setState({redBoxes: this.state.redBoxes + boxesMade});
+                     }
+                     else{
+                        this.setState({blueBoxes: this.state.blueBoxes + boxesMade});
+                     }
+                  }
+
+                  else if(v){
+                     var startId = id;
+                     var boxesMade = 0;
+                     var k1 = k;
+
+                     // vertical line placed base case 1
+                     // check right line and the two horizontal lines around it
+                     // keep going right until a vertical line is reached
+                     var endId1Buffer = j + " " + b + " " + (k+1) + " v";
+                     var endLine1Buffer = document.getElementById(endId1Buffer);
+                     var rectangle = true;
+                     if(endLine1Buffer != null && endLine1Buffer.className == "line-ver"){
+                        while(endLine1Buffer != null && endLine1Buffer.className == "line-ver" && rectangle){
+                           var endId1Buffer = j + " " + b + " " + (k+1) + " v";
+                           var endLine1Buffer = document.getElementById(endId1Buffer);
+                           var botRightLineId = (j+1) + " " + k + " " + (k+1);
+                           var topRightLineId = j + " " + k + " " + (k+1);
+                           var botRightLine = document.getElementById(botRightLineId);
+                           var topRightLine = document.getElementById(topRightLineId);
+                           if(topRightLine == null || topRightLine.className == "line-hor" || botRightLine == null || botRightLine.className == "line-hor"){
+                              rectangle = false;
+                           }
+                           k++;
+                        }
+                        if(rectangle){
+                           var start = startId.split(" ");
+                           var n = parseInt(start[2], 10);
+                           for(n; n < k; n++){
+                              if(this.state.player % 2 == 0){
+                                 document.getElementById(j + " " + n).className = "square-red";
+                                 document.getElementById(j + " " + (j+1) + " " + n + " v").className = "line-ver-red";
+                                 boxesMade++;
+                              }
+                              else{
+                                 document.getElementById(j + " " + n).className = "square-blue";
+                                 document.getElementById(j + " " + (j+1) + " " + n + " v").className = "line-ver-blue";
+                                 boxesMade++;
+                              } 
+                           }
+                        }
+                     }
+                     
+                     // vertical line placed base case 2
+                     // check left line and the two horizontal lines around it
+                     // keep going left until a vertical line is reached
+                     endId1Buffer = j + " " + b + " " + (k-1) + " v";
+                     endLine1Buffer = document.getElementById(endId1Buffer);
+                     rectangle = true;
+                     k = k1;
+                     if(endLine1Buffer != null && endLine1Buffer.className == "line-ver"){
+                        while(endLine1Buffer != null && endLine1Buffer.className == "line-ver" && rectangle){
+                           var endId1Buffer = j + " " + b + " " + (k-1) + " v";
+                           var endLine1Buffer = document.getElementById(endId1Buffer);
+                           var botLeftLineId = (j+1) + " " + (k-1) + " " + k;
+                           var topLeftLineId = j + " " + (k-1) + " " + k;
+                           var botLeftLine = document.getElementById(botLeftLineId);
+                           var topLeftLine = document.getElementById(topLeftLineId);
+                           if(topLeftLine == null || topLeftLine.className == "line-hor" || botLeftLine == null || botLeftLine.className == "line-hor"){
+                              rectangle = false;
+                           }
+                           k--;
+                        }
+                        if(rectangle){
+                           var start = startId.split(" ");
+                           var n = parseInt(start[2], 10);
+                           for(n; n > k; n--){
+                              if(this.state.player % 2 == 0){
+                                 document.getElementById(j + " " + (n-1)).className = "square-red";
+                                 document.getElementById(j + " " + (j+1) + " " + n + " v").className = "line-ver-red";
+                                 boxesMade++;
+                              }
+                              else{
+                                 document.getElementById(j + " " + (n-1)).className = "square-blue";
+                                 document.getElementById(j + " " + (j+1) + " " + n + " v").className = "line-ver-blue";
                                  boxesMade++;
                               } 
                            }
