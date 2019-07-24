@@ -22,14 +22,18 @@
 ## v1.6
 -   horizontal cases finished
 ## v1.7
--   code clean up (~200 lines deleted)
+-   code clean up (~200 lines not needed)
 ## v1.8
 -  more code clean up
 -  winner algorithm finished
-- styling changes
+-  styling changes
+
+## v1.9
+-  base cases for horizontal rectangles done
 
 ## Todo
--   figure out rectangle algorithm
+-  complete vertical line rectangle base cases
+-  add other cases for rectangles
 -  add more rows
 
 ### Description

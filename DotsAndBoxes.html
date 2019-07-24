@@ -63,9 +63,16 @@
             if(lines == 4){
                boxMade = true;
                var boxId = j + " " + k;
-               this.updateBoxesVertical(j, boxId);
 
-               
+               // get player and update box
+               if(this.state.player % 2 == 0){
+                  document.getElementById(boxId).className = "square-red";
+                  this.setState({redBoxes: this.state.redBoxes+1});
+               }
+               else{
+                  document.getElementById(boxId).className = "square-blue";
+                  this.setState({blueBoxes: this.state.blueBoxes+1});
+               }
             }
             return boxMade;
          }
@@ -89,59 +96,20 @@
             if(lines == 4){
                boxMade = true;
                var boxId = j + " " + (k-1);
-               this.updateBoxesVertical(j, boxId);
+
+               // get player and update box
+               if(this.state.player % 2 == 0){
+                  document.getElementById(boxId).className = "square-red";
+                  this.setState({redBoxes: this.state.redBoxes+1});
+               }
+               else{
+                  document.getElementById(boxId).className = "square-blue";
+                  this.setState({blueBoxes: this.state.blueBoxes+1});
+               }
             }
             return boxMade;
          }
 
-         updateBoxesVertical = (j, boxId) => {
-            // boxes are in rows: row - 1
-            // row 1 boxes
-            if(j == 0){
-               // red player
-               if(this.state.player % 2 == 0){
-                  for(var i = 0; i < row1.length; i++){
-                     if(row1[i].props.id == boxId){
-                        row1[i] = <span className="square-red" id={boxId}></span>
-                        this.setState({redBoxes: this.state.redBoxes+1})
-                     }
-                  }
-               }
-
-               // blue player
-               else{
-                  for(var i = 0; i < row1.length; i++){
-                     if(row1[i].props.id == boxId){
-                        row1[i] = <span className="square-blue" id={boxId}></span>
-                        this.setState({blueBoxes: this.state.blueBoxes+1})
-                     }
-                  }
-               }
-            }
-
-            // row 2 boxes
-            if(j == 1){
-               // red player
-               if(this.state.player % 2 == 0){
-                  for(var i = 0; i < row2.length; i++){
-                     if(row2[i].props.id == boxId){
-                        row2[i] = <span className="square-red" id={boxId}></span>
-                        this.setState({redBoxes: this.state.redBoxes+1})
-                     }
-                  }
-               }
-
-               // blue player
-               else{
-                  for(var i = 0; i < row2.length; i++){
-                     if(row2[i].props.id == boxId){
-                        row2[i] = <span className="square-blue" id={boxId}></span>
-                        this.setState({blueBoxes: this.state.blueBoxes+1})
-                     }
-                  }
-               }
-            }
-         }
 
          checkFromAbove = (j, k) => {
             var lines = 2;
@@ -163,7 +131,16 @@
             if(lines == 4){
                boxMade = true;
                var boxId = (j-1) + " " + (k-1);
-               this.updateBoxesHorizontal((j-1), boxId)
+
+               // get player and update box
+               if(this.state.player % 2 == 0){
+                  document.getElementById(boxId).className = "square-red";
+                  this.setState({redBoxes: this.state.redBoxes+1});
+               }
+               else{
+                  document.getElementById(boxId).className = "square-blue";
+                  this.setState({blueBoxes: this.state.blueBoxes+1});
+               }
             }
             return boxMade;
          }
@@ -188,148 +165,36 @@
             if(lines == 4){
                boxMade = true;
                var boxId = j + " " + (k-1);
-               this.updateBoxesHorizontal(j, boxId);
+
+               // get player and update box
+               if(this.state.player % 2 == 0){
+                  document.getElementById(boxId).className = "square-red";
+                  this.setState({redBoxes: this.state.redBoxes+1});
+               }
+               else{
+                  document.getElementById(boxId).className = "square-blue";
+                  this.setState({blueBoxes: this.state.blueBoxes+1});
+               }
                
             }
             return boxMade;
          }
 
-         updateBoxesHorizontal = (j, boxId) => {
-            // boxes are in rows: row - 1
-            // row 1 boxes
-            if(j == 0){
-               // red player
-               if(this.state.player % 2 == 0){
-                  for(var i = 0; i < row1.length; i++){
-                     if(row1[i].props.id == boxId){
-                        row1[i] = <span className="square-red" id={boxId}></span>
-                        this.setState({redBoxes: this.state.redBoxes+1})
-                     }
-                  }
-               }
-
-               // blue player
-               else{
-                  for(var i = 0; i < row1.length; i++){
-                     if(row1[i].props.id == boxId){
-                        row1[i] = <span className="square-blue" id={boxId}></span>
-                        this.setState({blueBoxes: this.state.blueBoxes+1})
-                     }
-                  }
-               }
-            }
-
-            // row 2 boxes
-            if(j == 1){
-               // red player
-               if(this.state.player % 2 == 0){
-                  for(var i = 0; i < row2.length; i++){
-                     if(row2[i].props.id == boxId){
-                        row2[i] = <span className="square-red" id={boxId}></span>
-                        this.setState({redBoxes: this.state.redBoxes+1})
-                     }
-                  }
-               }
-
-               // blue player
-               else{
-                  for(var i = 0; i < row2.length; i++){
-                     if(row2[i].props.id == boxId){
-                        row2[i] = <span className="square-blue" id={boxId}></span>
-                        this.setState({blueBoxes: this.state.blueBoxes+1})
-                     }
-                  }
-               }
-            }
-         }
-
          updateHorizontalLines = (row, id) => {
-            // update red rows
             if(this.state.player%2 == 0){
-               if(row == "0"){
-                  for(var y = 0; y < row0.length; y++){ 
-                     if(row0[y].props.id == id){
-                        row0[y] = <span className="line-hor-red" id={id}></span>
-                     }
-                  }
-               }
-               if(row == "1"){
-                  for(var y = 0; y < row1.length; y++){ 
-                     if(row1[y].props.id == id){
-                        row1[y] = <span className="line-hor-red" id={id}></span>
-                     }
-                  }
-               }
-               if(row == "2"){
-                  for(var y = 0; y < row2.length; y++){ 
-                     if(row2[y].props.id == id){
-                        row2[y] = <span className="line-hor-red" id={id}></span>
-                     }
-                  }
-               }
+               document.getElementById(id).className = "line-hor-red";
             }
-
-            // update blue rows
             else{
-               if(row == "0"){
-                  for(var y = 0; y < row0.length; y++){ 
-                     if(row0[y].props.id == id){
-                        row0[y] = <span className="line-hor-blue" id={id}></span>
-                     }
-                  }
-               }
-               if(row == "1"){
-                  for(var y = 0; y < row1.length; y++){ 
-                     if(row1[y].props.id == id){
-                        row1[y] = <span className="line-hor-blue" id={id}></span>
-                     }
-                  }
-               }
-               if(row == "2"){
-                  for(var y = 0; y < row2.length; y++){ 
-                     if(row2[y].props.id == id){
-                        row2[y] = <span className="line-hor-blue" id={id}></span>
-                     }
-                  }
-               }
+               document.getElementById(id).className = "line-hor-blue";
             }
          }
 
          updateVerticalLines = (row, id) => {
-            // update red rows
             if(this.state.player%2 == 0){
-               if(row == "1"){
-                  for(var y = 0; y < row1.length; y++){ 
-                     if(row1[y].props.id == id){
-                        row1[y] = <span className="line-ver-red" id={id}></span>
-                     }
-                  }
-               }
-               if(row == "2"){
-                  for(var y = 0; y < row2.length; y++){ 
-                     if(row2[y].props.id == id){
-                        row2[y] = <span className="line-ver-red" id={id}></span>
-                     }
-                  }
-               }
+               document.getElementById(id).className = "line-ver-red";
             }
-
-            // update blue rows
             else{
-               if(row == "1"){
-                  for(var y = 0; y < row1.length; y++){ 
-                     if(row1[y].props.id == id){
-                        row1[y] = <span className="line-ver-blue" id={id}></span>
-                     }
-                  }
-               }
-               if(row == "2"){
-                  for(var y = 0; y < row2.length; y++){ 
-                     if(row2[y].props.id == id){
-                        row2[y] = <span className="line-ver-blue" id={id}></span>
-                     }
-                  }
-               }
+               document.getElementById(id).className = "line-ver-blue";
             }
          }
 
@@ -517,6 +382,97 @@
                      }
                   }
 
+                  // check for rectangles after squares have been checked
+                  if(h && !(topBox || botBox)){
+                     var startId = id;
+                     var boxesMade = 0;
+
+                     // horizontal line placed base case 1
+                     // check bottom line and the two vertical lines around it
+                     // keep going down until a horizontal line is reached
+                     var endId1Buffer = (j+1) + " " + b + " " + c;
+                     var endLine1Buffer = document.getElementById(endId1Buffer);
+                     var rectangle = true;
+                     if(endLine1Buffer != null && endLine1Buffer.className == "line-hor"){
+                        while(endLine1Buffer != null && endLine1Buffer.className == "line-hor" && rectangle){
+                           var endId1Buffer = (j+1) + " " + b + " " + c;
+                           var endLine1Buffer = document.getElementById(endId1Buffer);
+                           var tLeftId = j + " " + (j+1) + " " + (k-1) + " v";
+                           var tRightId = j + " " + (j+1) + " " + k + " v";
+                           var tLeftLine = document.getElementById(tLeftId);
+                           var tRightLine = document.getElementById(tRightId);
+                           if(tLeftLine == null || tLeftLine.className == "line-ver" || tRightLine == null || tRightLine.className == "line-ver"){
+                              rectangle = false;
+                           }
+                           j++;
+                        }
+                        if(rectangle){
+                           var start = startId.split(" ");
+                           var n = parseInt(start[0], 10);
+                           var m = parseInt(start[1], 10);
+                           for(n; n < j; n++){
+                              if(this.state.player % 2 == 0){
+                                 document.getElementById(n + " " + m).className = "square-red";
+                                 document.getElementById(n + " " + m + " " + (m+1)).className = "line-hor-red";
+                                 boxesMade++;
+                              }
+                              else{
+                                 document.getElementById(n + " " + m).className = "square-blue";
+                                 document.getElementById(n + " " + m + " " + (m+1)).className = "line-hor-blue";
+                                 boxesMade++;
+                              } 
+                           }
+                        }
+                     }
+                     
+                     // horizontal line placed base case 2
+                     // check top line and the two vertical lines around it
+                     // keep going up until a horizontal line is reached
+                     endId1Buffer = (j-1) + " " + b + " " + c;
+                     endLine1Buffer = document.getElementById(endId1Buffer);
+                     rectangle = true;
+                     if(endLine1Buffer != null && endLine1Buffer.className == "line-hor"){
+                        while(endLine1Buffer != null && endLine1Buffer.className == "line-hor" && rectangle){
+                           var endId1Buffer = (j-1) + " " + b + " " + c;
+                           var endLine1Buffer = document.getElementById(endId1Buffer);
+                           var tLeftId = (j-1) + " " + j + " " + (k-1) + " v";
+                           var tRightId = (j-1) + " " + j + " " + k + " v";
+                           var tLeftLine = document.getElementById(tLeftId);
+                           var tRightLine = document.getElementById(tRightId);
+                           console.log(tLeftId, tRightId);
+                           console.log(tLeftLine, endLine1Buffer, tRightLine);
+                           if(tLeftLine == null || tLeftLine.className == "line-ver" || tRightLine == null || tRightLine.className == "line-ver"){
+                              rectangle = false;
+                           }
+                           j--;
+                        }
+                        if(rectangle){
+                           console.log("rect");
+                           var start = startId.split(" ");
+                           var n = parseInt(start[0], 10);
+                           var m = parseInt(start[1], 10);
+                           for(n = n-1; n >= j; n--){
+                              if(this.state.player % 2 == 0){
+                                 document.getElementById(n + " " + m).className = "square-red";
+                                 document.getElementById(n + " " + m + " " + (m+1)).className = "line-hor-red";
+                                 boxesMade++;
+                              }
+                              else{
+                                 document.getElementById(n + " " + m).className = "square-blue";
+                                 document.getElementById(n + " " + m + " " + (m+1)).className = "line-hor-blue";
+                                 boxesMade++;
+                              } 
+                           }
+                        }
+                     }
+                     if(this.state.player % 2 == 0){
+                        this.setState({redBoxes: this.state.redBoxes + boxesMade});
+                     }
+                     else{
+                        this.setState({blueBoxes: this.state.blueBoxes + boxesMade});
+                     }
+                  }
+
                   // update selected dot and id
                   $("#selected").attr("class", "dot");
                   $("#selected").attr("id", "");
@@ -652,7 +608,7 @@
                <div className="footer">
                   <p>Author: Marc Baltes
                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                     <img src="./githubLogo.png" class="gitImg"></img>
+                     <img src="./githubLogo.png" className="gitImg"></img>
                      <a href="https://github.com/marcbaltes">GitHub</a>
                   </p>
                </div>
