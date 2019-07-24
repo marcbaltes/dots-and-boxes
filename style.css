@@ -1,0 +1,201 @@
+body {
+   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+   margin: 0px;
+   overflow: hidden;
+    }
+
+    .board-row-top{
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 25px;
+        background-color: rgb(228, 228, 228);
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+        border: 1px solid rgb(202, 202, 202);
+        border-bottom: none;
+    }
+
+    .board-row{
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: -0px;
+        background-color: rgb(228, 228, 228);
+        border: 1px solid rgb(202, 202, 202);
+        border-top: none;
+        border-bottom: none;
+    }
+
+    .square{
+       height: 44px;
+       width: 44px;
+       border-radius: 10px;
+       background-color: rgb(228, 228 ,228);
+      position: fixed;
+      margin-top: -22px;
+      margin-left: -22px;
+    }
+    .square-blue{
+      height: 44px;
+      width: 44px;
+      border-radius: 5px;
+      background-color: rgb(0, 0, 255);
+     position: fixed;
+     margin-top: -22px;
+     margin-left: -22px;
+   }
+
+    .square-red{
+      height: 44px;
+      width: 44px;
+      border-radius: 5px;
+      background-color: rgb(255, 0, 0);
+     position: fixed;
+     margin-top: -22px;
+     margin-left: -22px;
+   }
+
+      .board-row:after {
+      clear: both;
+      content: "";
+      display: table;
+      }
+
+      .status {
+      margin-top: 30px;
+      margin-bottom: 10px;
+      font-size: 22px;
+      }
+
+      .status > span{
+         margin: 100px;
+      }
+
+    .line-hor{
+        border-top: 4px solid rgb(228, 228, 228);
+        width:40px;
+        position: fixed;
+        margin-top: 24px;
+        margin-left: -20px;
+    }
+
+    .line-hor-red{
+      border-top: 4px solid rgb(255, 0, 0);
+      width:40px;
+      position: fixed;
+      margin-top: 24px;
+      margin-left: -20px;
+   }
+
+   .line-hor-blue{
+      border-top: 4px solid rgb(0, 0, 255);
+      width:40px;
+      position: fixed;
+      margin-top: 24px;
+      margin-left: -20px;
+   }
+
+    .line-ver{
+        border-right: 4px solid rgb(228, 228 ,228);
+        height:40px;
+        margin-left: -28px;
+        margin-top: -20px;
+        position: fixed;   
+    }
+    .line-ver-red{
+      border-right: 4px solid rgb(255, 0, 0);
+      height:40px;
+      margin-left: -28px;
+      margin-top: -20px;
+      position: fixed;   
+  }
+  .line-ver-blue{
+   border-right: 4px solid rgb(0, 0, 255);
+   height:40px;
+   margin-left: -28px;
+   margin-top: -20px;
+   position: fixed;   
+}
+
+    .dot{
+        border-radius: 100px;
+        border: 1px solid black;
+        height: 12px;
+        width: 12px;
+        margin: 20px;
+        padding: 0px;
+        background-color: black;
+    }
+    .dot-white{
+      border-radius: 100px;
+      border: 1px solid rgb(0, 0, 0);
+      height: 12px;
+      width: 12px;
+      margin: 20px;
+      padding: 0px;
+      background-color: rgb(255, 255, 255);
+  }
+    .dot:hover{
+        cursor: pointer;
+    }
+    .dot:focus{
+      outline: none;
+    }
+    .dot-white:hover{
+      cursor: pointer;
+   }
+   .dot-white:focus{
+      outline: none;
+   }
+    .header{
+      display: flex;
+      justify-content: center;
+      /* align-items: center; */
+      background-color: rgb(228, 228, 228);
+      border: 1px solid rgb(202, 202, 202);
+     
+      height: 52px;
+      /* box-shadow: 0 2px 2px -2px gray; */
+      font-size: 35px;
+      font-weight: 400;
+    }
+
+   .footer{
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: rgb(228, 228 ,228);
+      border: 1px solid rgb(202, 202, 202);
+      height: 35px;
+      text-align: left;
+      padding-left: 15px;
+   }
+   .footer > p{
+      margin-top: 8px;
+      font-size: 13px;
+   }
+
+   .gitImg{
+      position: absolute;
+      margin-left: -25px;
+      height: 20px;
+      width: 20px;
+      margin-top: 0px;
+   }
+
+    .kbd-navigation .square:focus {
+    background: #ddd;
+    }
+
+    .game {
+    display: black;
+    flex-direction: row;
+    text-align: center;
+    }
+
+    .game-info {
+    margin-left: 20px;
+    }
+  
