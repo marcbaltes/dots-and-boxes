@@ -464,6 +464,30 @@
                            }
                         }
                      }
+
+                     // horizontal line placed case 3
+                     // go left and right to find stopping points of vertical lines
+                     // go left to right and fill in boxes
+                     var leftEndBufferId = j + " " + (j+1) + " " + (k-1) + " v";
+                     var rightEndBufferId = j + " " + (j+1) + " " + (k+1) + " v";
+                     rectangle = true;
+                     var checkVerticalUp = false;
+
+                     // bottom left buffer by default
+                     var leftEndBuffer = document.getElementById(leftEndBufferId);
+                     var rightEndBuffer = document.getElementById(rightEndBufferId);
+
+                     // case where at end of board, buffer is top 
+                     if(leftEndBuffer == null){
+                        checkVerticalUp = true;
+                        leftEndBufferId = (j-1) + " " + j + " " + (k-1) + " v";
+                        rightEndBufferId = (j-1) + " " + j + " " + (k+1) + " v";
+                     }
+
+                     if(!checkVerticalUp){
+
+                     }
+                     
                      if(this.state.player % 2 == 0){
                         this.setState({redBoxes: this.state.redBoxes + boxesMade});
                      }
@@ -724,6 +748,3 @@
    
 </body>
 </html>
-
-
-  
