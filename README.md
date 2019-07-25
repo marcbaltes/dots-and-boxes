@@ -8,7 +8,8 @@ Based off the Dots and Boxes game you can find pretty much anywhere you want to 
 - Make sure you have Python 3 installed
 - Open terminal and navigate to the folder that contains these files 
 - In terminal type ```python -m SimpleHTTPServer```. This will start a local server at ```localhost:8000```. If 8000 is unavailable type ```python -m SimpleHTTPServer ####``` where #### is the number of the server
-- Type ```localhost:8000``` (or whatever host number you used) into the URL of your browser and then click ```DotsAndBoxes.html``` on that page to start the game
+- Type ```localhost:8000``` (or whatever host number you used) into the URL of your browser
+- In your browserm find ```DotsAndBoxes.html``` and click to to open the webpage and start the game
 - To stop the server, press ```Ctrl + C``` in terminal when you are finished playing
 ### Gameplay
 - Each player takes turns clicking two adjacent dots (not diagonally) to form a line. You cannot create a line that has already been made by you or the other player. Additionally, if you click a dot and decide to change your mind, click the dot again and you will be able to click a new starting dot to form a line.
