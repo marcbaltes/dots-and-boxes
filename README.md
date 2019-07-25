@@ -1,5 +1,4 @@
 # Dots and Boxes
->  Note: I just finished this so it *should* be working. If not let me know, thanks :)
 
 ### Description
 Based off the Dots and Boxes game you can find pretty much anywhere you want to look. Each player takes turns drawing a line and if that player is able to close off the line and make a square the get a point. Doing so will also allow the player to move again. Whoever has the most points when there are no more squares left wins. This game was made using mostly JavaScript (with the React.js and jQuery libraries). HTML is also used and CSS is used for styling purposes.
