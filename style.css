@@ -16,6 +16,18 @@ body {
         border-bottom: none;
     }
 
+    .board-row-bot{
+      width: 60%;
+      margin-left: auto;
+      margin-right: auto;
+     padding-bottom: 23px;
+      background-color: rgb(228, 228, 228);
+      border-bottom-right-radius: 10px;
+      border-bottom-left-radius: 10px;
+      border: 1px solid rgb(202, 202, 202);
+      border-top: none;
+  }
+
     .board-row{
         width: 60%;
         margin-left: auto;
@@ -63,13 +75,13 @@ body {
       }
 
       .status {
-      margin-top: 15px;
+      margin-top: 13px;
       margin-bottom: 10px;
       font-size: 22px;
       }
 
       .status > span{
-         margin: 100px;
+         margin: 175px;
       }
 
     .line-hor{

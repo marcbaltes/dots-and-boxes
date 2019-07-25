@@ -2,6 +2,10 @@
 var row0 = [];
 var row1 = [];
 var row2 = [];
+var row3 = [];
+var row4 = [];
+var row5 = [];
+var row6 = [];
 
 // main class
 // keeps track of game state
@@ -372,6 +376,7 @@ class Board extends React.Component {
                var boxesMade = 0;
                var j1 = j;
                var k1 = k;
+               var case3 = true;
 
                // horizontal line placed base case 1
                // check bottom line and the two vertical lines around it
@@ -393,21 +398,34 @@ class Board extends React.Component {
                      j++;
                   }
                   if(rectangle){
+                     case3 = false;
                      var start = startId.split(" ");
                      var n = parseInt(start[0], 10);
                      var m = parseInt(start[1], 10);
                      for(n; n < j; n++){
                         if(this.state.player % 2 == 0){
-                           document.getElementById(n + " " + m).className = "square-red";
-                           document.getElementById(n + " " + m + " " + (m+1)).className = "line-hor-red";
-                           boxesMade++;
+                           var boxId = n + " " + m;
+                           var box = document.getElementById(boxId);
+                           if(box.className == "square"){
+                              document.getElementById(n + " " + m).className = "square-red";
+                              document.getElementById(n + " " + m + " " + (m+1)).className = "line-hor-red";
+                              boxesMade++;
+                              this.setState({redBoxes: this.state.redBoxes + boxesMade});
+                           }
                         }
                         else{
-                           document.getElementById(n + " " + m).className = "square-blue";
-                           document.getElementById(n + " " + m + " " + (m+1)).className = "line-hor-blue";
-                           boxesMade++;
+                           var boxId = n + " " + m;
+                           var box = document.getElementById(boxId);
+                           if(box.className == "square"){
+                              document.getElementById(n + " " + m).className = "square-blue";
+                              document.getElementById(n + " " + m + " " + (m+1)).className = "line-hor-blue";
+                              boxesMade++;
+                              this.setState({blueBoxes: this.state.blueBoxes + boxesMade});
+                           }
                         } 
                      }
+                     // player moves again
+                     this.setState({player: this.state.player++})
                   }
                }
                
@@ -432,270 +450,290 @@ class Board extends React.Component {
                      j--;
                   }
                   if(rectangle){
+                     case3 = false;
                      var start = startId.split(" ");
                      var n = parseInt(start[0], 10);
                      var m = parseInt(start[1], 10);
                      for(n = n-1; n >= j; n--){
                         if(this.state.player % 2 == 0){
-                           document.getElementById(n + " " + m).className = "square-red";
-                           document.getElementById(n + " " + m + " " + (m+1)).className = "line-hor-red";
-                           boxesMade++;
+                           var boxId = n + " " + m;
+                           var box = document.getElementById(boxId);
+                           if(box.className == "square"){
+                              document.getElementById(n + " " + m).className = "square-red";
+                              document.getElementById(n + " " + m + " " + (m+1)).className = "line-hor-red";
+                              boxesMade++;
+                              this.setState({redBoxes: this.state.redBoxes + boxesMade});
+                           }
                         }
                         else{
-                           document.getElementById(n + " " + m).className = "square-blue";
-                           document.getElementById(n + " " + m + " " + (m+1)).className = "line-hor-blue";
-                           boxesMade++;
+                           var boxId = n + " " + m;
+                           var box = document.getElementById(boxId);
+                           if(box.className == "square"){
+                              document.getElementById(n + " " + m).className = "square-blue";
+                              document.getElementById(n + " " + m + " " + (m+1)).className = "line-hor-blue";
+                              boxesMade++;
+                              this.setState({blueBoxes: this.state.blueBoxes + boxesMade});
+                           }
                         } 
                      }
+                     // player moves again
+                     this.setState({player: this.state.player++})
                   }
                }
 
                // horizontal line placed case 3
                // go left and right to find stopping points of vertical lines
                // go left to right and fill in boxes
-               j = j1;
-               var leftEndBufferId = j + " " + (j+1) + " " + (k-1) + " v";
-               var rightEndBufferId = j + " " + (j+1) + " " + k + " v";
-               var oppositeLineId = (j+1) + " " + b + " " + c;
-               var currentLineId = id;
-               var leftRectangleCheck = true;
-               var rightRectangleCheck = true;
-               var checkVerticalUp = false;
-               
-
-               // bottom left buffer by default
-               var leftEndBuffer = document.getElementById(leftEndBufferId);
-               var rightEndBuffer = document.getElementById(rightEndBufferId);
-               var oppositeLine = document.getElementById(oppositeLineId);
-               var currentLine = document.getElementById(currentLineId);
-
-               // case where at end of board, buffer is top 
-               if(oppositeLine == null){
-                  checkVerticalUp = true;
-                  leftEndBufferId = (j-1) + " " + j + " " + (k-1) + " v";
-                  rightEndBufferId = (j-1) + " " + j + " " + k + " v";
-                  oppositeLineId = (j-1) + " " + b + " " + c;
-                  leftEndBuffer = document.getElementById(leftEndBufferId);
-                  rightEndBuffer = document.getElementById(rightEndBufferId);
-                  oppositeLine = document.getElementById(oppositeLineId);
-               }
-
-               if(checkVerticalUp){
-                  var n = parseInt(b, 10);
-                  var m = parseInt(c, 10);
-                  var n1 = n;
-                  var m1 = m;
+               if(case3){
+                  j = j1;
+                  var leftEndBufferId = j + " " + (j+1) + " " + (k-1) + " v";
+                  var rightEndBufferId = j + " " + (j+1) + " " + k + " v";
+                  var oppositeLineId = (j+1) + " " + b + " " + c;
+                  var currentLineId = id;
+                  var leftRectangleCheck = true;
+                  var rightRectangleCheck = true;
+                  var checkVerticalUp = false;
                   
-                  if(oppositeLine != null && oppositeLine.className != "line-hor"){
-
-                     // go left and check for lines making a rectangle
-                     while(oppositeLine != null && oppositeLine.className != "line-hor" &&
-                        currentLine != null && currentLine.className != "line-hor" && 
-                        leftEndBuffer != null && leftEndBuffer.className == "line-ver"){
-                        oppositeLineId = (j-1) + " " + n + " " + m;
-                        currentLineId = j + " " + n + " " + m;
-                        leftEndBufferId = (j-1) + " " + j + " " + (k-1) + " v";
-                        leftEndBuffer = document.getElementById(leftEndBufferId);
-                        oppositeLine = document.getElementById(oppositeLineId);
-                        currentLine = document.getElementById(currentLineId);
-                        if(oppositeLine == null || oppositeLine.className == "line-hor" || currentLine == null || currentLine.className == "line-hor"){
-                           leftRectangleCheck = false;
+   
+                  // bottom left buffer by default
+                  var leftEndBuffer = document.getElementById(leftEndBufferId);
+                  var rightEndBuffer = document.getElementById(rightEndBufferId);
+                  var oppositeLine = document.getElementById(oppositeLineId);
+                  var currentLine = document.getElementById(currentLineId);
+   
+                  // line placed from bottom
+                  if(oppositeLine == null || oppositeLine.className == "line-hor"){
+                     checkVerticalUp = true;
+                     leftEndBufferId = (j-1) + " " + j + " " + (k-1) + " v";
+                     rightEndBufferId = (j-1) + " " + j + " " + k + " v";
+                     oppositeLineId = (j-1) + " " + b + " " + c;
+                     leftEndBuffer = document.getElementById(leftEndBufferId);
+                     rightEndBuffer = document.getElementById(rightEndBufferId);
+                     oppositeLine = document.getElementById(oppositeLineId);
+                  }
+   
+                  if(checkVerticalUp){
+                     var n = parseInt(b, 10);
+                     var m = parseInt(c, 10);
+                     var n1 = n;
+                     var m1 = m;
+                     
+                     if(oppositeLine != null && oppositeLine.className != "line-hor"){
+   
+                        // go left and check for lines making a rectangle
+                        while(oppositeLine != null && oppositeLine.className != "line-hor" &&
+                           currentLine != null && currentLine.className != "line-hor" && 
+                           leftEndBuffer != null && leftEndBuffer.className == "line-ver"){
+                           oppositeLineId = (j-1) + " " + n + " " + m;
+                           currentLineId = j + " " + n + " " + m;
+                           leftEndBufferId = (j-1) + " " + j + " " + (k-1) + " v";
+                           leftEndBuffer = document.getElementById(leftEndBufferId);
+                           oppositeLine = document.getElementById(oppositeLineId);
+                           currentLine = document.getElementById(currentLineId);
+                           if(oppositeLine == null || oppositeLine.className == "line-hor" || currentLine == null || currentLine.className == "line-hor"){
+                              leftRectangleCheck = false;
+                           }
+                           else{
+                              n--;
+                              m--;
+                              k--;
+                           }
                         }
-                        else{
-                           n--;
-                           m--;
-                           k--;
+   
+                        // go right and check for lines making a rectangle
+                        k = k1;
+                        j = j1;
+                        n = n1;
+                        m = m1;
+                        while(oppositeLine != null && oppositeLine.className != "line-hor" &&
+                           currentLine != null && currentLine.className != "line-hor" && 
+                           rightEndBuffer != null && rightEndBuffer.className == "line-ver"){
+                           oppositeLineId = (j-1) + " " + n + " " + m;
+                           currentLineId = j + " " + n + " " + m;
+                           rightEndBufferId = (j-1) + " " + j + " " + k + " v";
+                           rightEndBuffer = document.getElementById(rightEndBufferId);
+                           oppositeLine = document.getElementById(oppositeLineId);
+                           currentLine = document.getElementById(currentLineId);
+                           if(oppositeLine == null || oppositeLine.className == "line-hor" || currentLine == null || currentLine.className == "line-hor"){
+                              rightRectangleCheck = false;
+                           }
+                           else{
+                              n++;
+                              m++;
+                              k++;
+                           }
                         }
                      }
-
-                     // go right and check for lines making a rectangle
-                     k = k1;
-                     j = j1;
-                     n = n1;
-                     m = m1;
-                     while(oppositeLine != null && oppositeLine.className != "line-hor" &&
-                        currentLine != null && currentLine.className != "line-hor" && 
-                        rightEndBuffer != null && rightEndBuffer.className == "line-ver"){
-                        oppositeLineId = (j-1) + " " + n + " " + m;
-                        currentLineId = j + " " + n + " " + m;
-                        rightEndBufferId = (j-1) + " " + j + " " + k + " v";
-                        rightEndBuffer = document.getElementById(rightEndBufferId);
-                        oppositeLine = document.getElementById(oppositeLineId);
-                        currentLine = document.getElementById(currentLineId);
-                        if(oppositeLine == null || oppositeLine.className == "line-hor" || currentLine == null || currentLine.className == "line-hor"){
-                           rightRectangleCheck = false;
-                        }
-                        else{
-                           n++;
-                           m++;
-                           k++;
-                        }
-                     }
-                  }
-
-                  var leftRectangle = false;
-                  var rightRectangle = false;
-
-                  // check if line filled makes a corner
-                  if(leftEndBuffer != null && leftEndBuffer.className != "line-ver" && leftRectangleCheck){
-                     leftRectangle = true;
-                  }
-                  else{
-                     leftRectangle = false;
-                  }
-                  if(rightEndBuffer != null && rightEndBuffer.className != "line-ver" && rightRectangleCheck){
-                     rightRectangle = true;
-                  }
-                  else{
-                     rightRectangle = false;
-                  }
-
-                  // start at left and go to right and fill in boxes
-                  if(leftRectangle && rightRectangle){
-                     var startId = leftEndBufferId.split(" ");
-                     var i = parseInt(startId[2], 10);
-                     var endId = rightEndBufferId.split(" ");
-                     var j = parseInt(endId[2], 10);
-                     var boxesMade = 0;
-                     if(this.state.player % 2 == 0){
-                        for(i; i < j; i++){
-                           var boxId = startId[0] + " " + i;
-                           document.getElementById(boxId).className = "square-red";
-                           var line = startId[0] + " " + startId[1] + " " + i + " v";
-                           boxesMade ++;
-                           document.getElementById(line).className = "line-ver-red";
-                        }
-                        this.setState({redBoxes: this.state.redBoxes + boxesMade})
+   
+                     var leftRectangle = false;
+                     var rightRectangle = false;
+   
+                     // check if line filled makes a corner
+                     if(leftEndBuffer != null && leftEndBuffer.className != "line-ver" && leftRectangleCheck){
+                        leftRectangle = true;
                      }
                      else{
-                        for(i; i < j; i++){
-                           var boxId = startId[0] + " " + i;
-                           document.getElementById(boxId).className = "square-blue";
-                           var line = startId[0] + " " + startId[1] + " " + i + " v";
-                           boxesMade ++;
-                           document.getElementById(line).className = "line-ver-blue";
-                        }
-                        this.setState({blueBoxes: this.state.blueBoxes + boxesMade})
+                        leftRectangle = false;
                      }
-                  }   
-               }
-
-               else{
-                  var n = parseInt(b, 10);
-                  var m = parseInt(c, 10);
-                  var n1 = n;
-                  var m1 = m;
-                  
-                  if(oppositeLine != null && oppositeLine.className != "line-hor"){
-
-                     // go left and check for lines making a rectangle
-                     while(oppositeLine != null && oppositeLine.className != "line-hor" &&
-                        currentLine != null && currentLine.className != "line-hor" && 
-                        leftEndBuffer != null && leftEndBuffer.className == "line-ver"){
-                        oppositeLineId = (j+1) + " " + n + " " + m;
-                        currentLineId = j + " " + n + " " + m;
-                        leftEndBufferId = j + " " + (j+1) + " " + (k-1) + " v";
-                        leftEndBuffer = document.getElementById(leftEndBufferId);
-                        oppositeLine = document.getElementById(oppositeLineId);
-                        currentLine = document.getElementById(currentLineId);
-                        if(oppositeLine == null || oppositeLine.className == "line-hor" || currentLine == null || currentLine.className == "line-hor"){
-                           leftRectangleCheck = false;
-                        }
-                        else{
-                           n--;
-                           m--;
-                           k--;
-                        }
-                     }
-
-                     // go right and check for lines making a rectangle
-                     k = k1;
-                     j = j1;
-                     n = n1;
-                     m = m1;
-                     while(oppositeLine != null && oppositeLine.className != "line-hor" &&
-                        currentLine != null && currentLine.className != "line-hor" && 
-                        rightEndBuffer != null && rightEndBuffer.className == "line-ver"){
-                        oppositeLineId = (j+1) + " " + n + " " + m;
-                        currentLineId = j + " " + n + " " + m;
-                        rightEndBufferId = j + " " + (j+1) + " " + k + " v";
-                        rightEndBuffer = document.getElementById(rightEndBufferId);
-                        oppositeLine = document.getElementById(oppositeLineId);
-                        currentLine = document.getElementById(currentLineId);
-                        if(oppositeLine == null || oppositeLine.className == "line-hor" || currentLine == null || currentLine.className == "line-hor"){
-                           rightRectangleCheck = false;
-                        }
-                        else{
-                           n++;
-                           m++;
-                           k++;
-                        }
-                     }
-                  }
-
-                  var leftRectangle = false;
-                  var rightRectangle = false;
-
-                  // check if line filled makes a corner
-                  if(leftEndBuffer != null && leftEndBuffer.className != "line-ver" && leftRectangleCheck){
-                     leftRectangle = true;
-                  }
-                  else{
-                     leftRectangle = false;
-                  }
-                  if(rightEndBuffer != null && rightEndBuffer.className != "line-ver" && rightRectangleCheck){
-                     rightRectangle = true;
-                  }
-                  else{
-                     rightRectangle = false;
-                  }
-
-                  // start at left and go to right and fill in boxes
-                  if(leftRectangle && rightRectangle){
-                     var startId = leftEndBufferId.split(" ");
-                     var i = parseInt(startId[2], 10);
-                     var endId = rightEndBufferId.split(" ");
-                     var j = parseInt(endId[2], 10);
-                     var boxesMade = 0;
-                     if(this.state.player % 2 == 0){
-                        for(i; i < j; i++){
-                           var boxId = startId[0] + " " + i;
-                           document.getElementById(boxId).className = "square-red";
-                           var line = startId[0] + " " + startId[1] + " " + i + " v";
-                           boxesMade ++;
-                           document.getElementById(line).className = "line-ver-red";
-                        }
-                        this.setState({redBoxes: this.state.redBoxes + boxesMade})
+                     if(rightEndBuffer != null && rightEndBuffer.className != "line-ver" && rightRectangleCheck){
+                        rightRectangle = true;
                      }
                      else{
-                        for(i; i < j; i++){
-                           var boxId = startId[0] + " " + i;
-                           document.getElementById(boxId).className = "square-blue";
-                           var line = startId[0] + " " + startId[1] + " " + i + " v";
-                           boxesMade ++;
-                           document.getElementById(line).className = "line-ver-blue";
-                        }
-                        this.setState({blueBoxes: this.state.blueBoxes + boxesMade})
+                        rightRectangle = false;
                      }
-                  }                     
-               }
-
-               if(this.state.player % 2 == 0){
-                  this.setState({redBoxes: this.state.redBoxes + boxesMade});
-               }
-               else{
-                  this.setState({blueBoxes: this.state.blueBoxes + boxesMade});
-               }
-
-               if(leftRectangle && rightRectangle){
-                  this.setState({player: this.state.player++})
+   
+                     // start at left and go to right and fill in boxes
+                     if(leftRectangle && rightRectangle){
+                        var startId = leftEndBufferId.split(" ");
+                        var i = parseInt(startId[2], 10);
+                        var endId = rightEndBufferId.split(" ");
+                        var j = parseInt(endId[2], 10);
+                        var boxesMade = 0;
+                        if(this.state.player % 2 == 0){
+                           for(i; i < j; i++){
+                              var boxId = startId[0] + " " + i;
+                              var box = document.getElementById(boxId);
+                              if(box.className == "square"){
+                                 document.getElementById(boxId).className = "square-red";
+                                 var line = startId[0] + " " + startId[1] + " " + i + " v";
+                                 boxesMade ++;
+                                 document.getElementById(line).className = "line-ver-red";
+                              }
+                           }
+                           this.setState({redBoxes: this.state.redBoxes + boxesMade})
+                        }
+                        else{
+                           for(i; i < j; i++){
+                              var boxId = startId[0] + " " + i;
+                              var box = document.getElementById(boxId);
+                              if(box.className == "square"){
+                                 document.getElementById(boxId).className = "square-blue";
+                                 var line = startId[0] + " " + startId[1] + " " + i + " v";
+                                 boxesMade ++;
+                                 document.getElementById(line).className = "line-ver-blue";
+                              }
+                           }
+                           this.setState({blueBoxes: this.state.blueBoxes + boxesMade})
+                        }
+                        this.setState({player: this.state.player++});
+                     }   
+                  }
+   
+                  else{
+                     var n = parseInt(b, 10);
+                     var m = parseInt(c, 10);
+                     var n1 = n;
+                     var m1 = m;
+                     
+                     if(oppositeLine != null && oppositeLine.className != "line-hor"){
+   
+                        // go left and check for lines making a rectangle
+                        while(oppositeLine != null && oppositeLine.className != "line-hor" &&
+                           currentLine != null && currentLine.className != "line-hor" && 
+                           leftEndBuffer != null && leftEndBuffer.className == "line-ver"){
+                           oppositeLineId = (j+1) + " " + n + " " + m;
+                           currentLineId = j + " " + n + " " + m;
+                           leftEndBufferId = j + " " + (j+1) + " " + (k-1) + " v";
+                           leftEndBuffer = document.getElementById(leftEndBufferId);
+                           oppositeLine = document.getElementById(oppositeLineId);
+                           currentLine = document.getElementById(currentLineId);
+                           if(oppositeLine == null || oppositeLine.className == "line-hor" || currentLine == null || currentLine.className == "line-hor"){
+                              leftRectangleCheck = false;
+                           }
+                           else{
+                              n--;
+                              m--;
+                              k--;
+                           }
+                        }
+   
+                        // go right and check for lines making a rectangle
+                        k = k1;
+                        j = j1;
+                        n = n1;
+                        m = m1;
+                        while(oppositeLine != null && oppositeLine.className != "line-hor" &&
+                           currentLine != null && currentLine.className != "line-hor" && 
+                           rightEndBuffer != null && rightEndBuffer.className == "line-ver"){
+                           oppositeLineId = (j+1) + " " + n + " " + m;
+                           currentLineId = j + " " + n + " " + m;
+                           rightEndBufferId = j + " " + (j+1) + " " + k + " v";
+                           rightEndBuffer = document.getElementById(rightEndBufferId);
+                           oppositeLine = document.getElementById(oppositeLineId);
+                           currentLine = document.getElementById(currentLineId);
+                           if(oppositeLine == null || oppositeLine.className == "line-hor" || currentLine == null || currentLine.className == "line-hor"){
+                              rightRectangleCheck = false;
+                           }
+                           else{
+                              n++;
+                              m++;
+                              k++;
+                           }
+                        }
+                     }
+   
+                     var leftRectangle = false;
+                     var rightRectangle = false;
+   
+                     // check if line filled makes a corner
+                     if(leftEndBuffer != null && leftEndBuffer.className != "line-ver" && leftRectangleCheck){
+                        leftRectangle = true;
+                     }
+                     else{
+                        leftRectangle = false;
+                     }
+                     if(rightEndBuffer != null && rightEndBuffer.className != "line-ver" && rightRectangleCheck){
+                        rightRectangle = true;
+                     }
+                     else{
+                        rightRectangle = false;
+                     }
+   
+                     // start at left and go to right and fill in boxes
+                     if(leftRectangle && rightRectangle){
+                        var startId = leftEndBufferId.split(" ");
+                        var i = parseInt(startId[2], 10);
+                        var endId = rightEndBufferId.split(" ");
+                        var j = parseInt(endId[2], 10);
+                        var boxesMade = 0;
+                        if(this.state.player % 2 == 0){
+                           for(i; i < j; i++){
+                              var boxId = startId[0] + " " + i;
+                              var box = document.getElementById(boxId);
+                              if(box.className == "square"){
+                                 document.getElementById(boxId).className = "square-red";
+                                 var line = startId[0] + " " + startId[1] + " " + i + " v";
+                                 boxesMade ++;
+                                 document.getElementById(line).className = "line-ver-red";
+                              }
+                           }
+                           this.setState({redBoxes: this.state.redBoxes + boxesMade})
+                        }
+                        else{
+                           for(i; i < j; i++){
+                              var boxId = startId[0] + " " + i;
+                              var box = document.getElementById(boxId);
+                              if(box.className == "square"){
+                                 document.getElementById(boxId).className = "square-blue";
+                                 var line = startId[0] + " " + startId[1] + " " + i + " v";
+                                 boxesMade ++;
+                                 document.getElementById(line).className = "line-ver-blue";
+                              }
+                           }
+                           this.setState({blueBoxes: this.state.blueBoxes + boxesMade})
+                        }
+                        this.setState({player: this.state.player++});
+                     }                     
+                  }
                }
             }
 
             else if(v && !(leftBox || rightBox)){
                var startId = id;
                var boxesMade = 0;
+               var j1 = j;
                var k1 = k;
+               var case3 = true;
 
                // vertical line placed base case 1
                // check right line and the two horizontal lines around it
@@ -717,30 +755,42 @@ class Board extends React.Component {
                      k++;
                   }
                   if(rectangle){
+                     case3 = false;
                      var start = startId.split(" ");
                      var n = parseInt(start[2], 10);
                      for(n; n < k; n++){
                         if(this.state.player % 2 == 0){
-                           document.getElementById(j + " " + n).className = "square-red";
-                           document.getElementById(j + " " + (j+1) + " " + n + " v").className = "line-ver-red";
-                           boxesMade++;
+                           var boxId = j + " " + n;
+                           var box = document.getElementById(boxId);
+                           if(box.className == "square"){
+                              document.getElementById(j + " " + n).className = "square-red";
+                              document.getElementById(j + " " + (j+1) + " " + n + " v").className = "line-ver-red";
+                              boxesMade++;
+                           }
+                           this.setState({redBoxes: this.state.redBoxes+boxesMade})
                         }
                         else{
-                           document.getElementById(j + " " + n).className = "square-blue";
-                           document.getElementById(j + " " + (j+1) + " " + n + " v").className = "line-ver-blue";
-                           boxesMade++;
+                           var boxId = j + " " + n;
+                           var box = document.getElementById(boxId);
+                           if(box.className == "square"){
+                              document.getElementById(j + " " + n).className = "square-blue";
+                              document.getElementById(j + " " + (j+1) + " " + n + " v").className = "line-ver-blue";
+                              boxesMade++;
+                           }
+                           this.setState({blueBoxes: this.state.blueBoxes+boxesMade})
                         } 
                      }
+                     this.setState({player: this.state.player++});
                   }
                }
                
                // vertical line placed base case 2
                // check left line and the two horizontal lines around it
                // keep going left until a vertical line is reached
+               k = k1;
                endId1Buffer = j + " " + b + " " + (k-1) + " v";
                endLine1Buffer = document.getElementById(endId1Buffer);
-               rectangle = true;
-               k = k1;
+               rectangle = true;     
                if(endLine1Buffer != null && endLine1Buffer.className == "line-ver"){
                   while(endLine1Buffer != null && endLine1Buffer.className == "line-ver" && rectangle){
                      var endId1Buffer = j + " " + b + " " + (k-1) + " v";
@@ -755,27 +805,229 @@ class Board extends React.Component {
                      k--;
                   }
                   if(rectangle){
+                     case3 = false;
                      var start = startId.split(" ");
                      var n = parseInt(start[2], 10);
                      for(n; n > k; n--){
                         if(this.state.player % 2 == 0){
-                           document.getElementById(j + " " + (n-1)).className = "square-red";
-                           document.getElementById(j + " " + (j+1) + " " + n + " v").className = "line-ver-red";
-                           boxesMade++;
+                           var boxId = j + " " + (n-1)
+                           var box = document.getElementById(boxId);
+                           if(box.className == "square"){
+                              document.getElementById(boxId).className = "square-red";
+                              document.getElementById(j + " " + (j+1) + " " + n + " v").className = "line-ver-red";
+                              boxesMade++;
+                           }
+                           this.setState({redBoxes: this.state.redBoxes+boxesMade})
                         }
                         else{
-                           document.getElementById(j + " " + (n-1)).className = "square-blue";
-                           document.getElementById(j + " " + (j+1) + " " + n + " v").className = "line-ver-blue";
-                           boxesMade++;
+                           var boxId = j + " " + (n-1)
+                           var box = document.getElementById(boxId);
+                           if(box.className == "square"){
+                              document.getElementById(boxId).className = "square-blue";
+                              document.getElementById(j + " " + (j+1) + " " + n + " v").className = "line-ver-blue";
+                              boxesMade++;
+                           }
+                           this.setState({blueBoxes: this.state.blueBoxes+boxesMade})
                         } 
                      }
+                     this.setState({player: this.state.player++});
                   }
                }
-               if(this.state.player % 2 == 0){
-                  this.setState({redBoxes: this.state.redBoxes + boxesMade});
-               }
-               else{
-                  this.setState({blueBoxes: this.state.blueBoxes + boxesMade});
+
+               // vertical line placed case 3
+               // go up and down to find stopping points of vertical lines
+               // go up to down and fill in boxes
+               if(case3){
+                  j = j1;
+                  k = k1;
+                  var topEndBufferId = j + " " + k + " " + (k+1);
+                  var topEndBuffer = document.getElementById(topEndBufferId);
+                  var botEndBufferId = (j+1) + " " + k + " " + (k+1);
+                  var botEndBuffer = document.getElementById(botEndBufferId);
+                  var oppositeLineId = j + " " + (j+1) + " " + (k+1) + " v";
+                  var currentLineId = id;
+                  var topRectangleCheck = true;
+                  var botRectangleCheck = true;
+                  var checkFromLeft = false;
+                  var oppositeLine = document.getElementById(oppositeLineId);
+                  var currentLine = document.getElementById(currentLineId);
+   
+                  // line placed on right so check right
+                  if(oppositeLine == null || oppositeLine.className == "line-ver"){
+                     checkFromLeft = true;
+                     topEndBufferId = j + " " + (k-1) + " " + k;
+                     botEndBufferId = (j+1) + " " + (k-1) + " " + k;
+                     oppositeLineId = j + " " + b + " " + (k-1) + " v";
+                     topEndBuffer = document.getElementById(topEndBufferId);
+                     botEndBuffer = document.getElementById(botEndBufferId);
+                     oppositeLine = document.getElementById(oppositeLineId);
+                  }
+   
+                  if(checkFromLeft == false){
+                    if(oppositeLine != null && oppositeLine.className != "line-ver"){
+   
+                     // go down and check for lines making a rectangle
+                     while(oppositeLine != null && oppositeLine.className != "line-ver" &&
+                        currentLine != null && currentLine.className != "line-ver" &&
+                        botEndBuffer != null && botEndBuffer.className == "line-hor"){
+                           oppositeLineId = j + " " + (j+1) + " " + (k+1) + " v";
+                           currentLineId = j + " " + (j+1) + " " + k + " v";
+                           botEndBufferId = (j+1) + " " + k + " " + (k+1);
+                           botEndBuffer = document.getElementById(botEndBufferId);
+                           oppositeLine = document.getElementById(oppositeLineId);
+                           currentLine = document.getElementById(currentLineId);
+                           if(oppositeLine == null || oppositeLine.className == "line-ver" || currentLine == null || currentLine.className == "line-ver"){
+                              botRectangleCheck = false;
+                           }
+                           else{
+                              j++;
+                           }
+   
+                        }
+   
+                        // go up and check for lines making a rectangle
+                        j = j1;
+                        currentLineId = j + " " + (j+1) + " " + k + " v";
+                        oppositeLineId = j + " " + (j+1) + " " + (k+1) + " v";
+                        currentLine = document.getElementById(currentLineId);
+                        oppositeLine = document.getElementById(oppositeLineId);
+                        while(oppositeLine != null && oppositeLine.className != "line-ver" &&
+                        currentLine != null && currentLine.className != "line-ver" &&
+                        topEndBuffer != null && topEndBuffer.className == "line-hor"){
+                           oppositeLineId = j + " " + (j+1) + " " + (k+1) + " v";
+                           currentLineId = j + " " + (j+1) + " " + k + " v";
+                           topEndBufferId = j + " " + k + " " + (k+1);
+                           topEndBuffer = document.getElementById(topEndBufferId);
+                           oppositeLine = document.getElementById(oppositeLineId);
+                           currentLine = document.getElementById(currentLineId);
+                           if(oppositeLine == null || oppositeLine.className == "line-ver" || currentLine == null || currentLine.className == "line-ver"){
+                              topRectangleCheck = false;
+                           }
+                           else{
+                              j--;
+                           }
+   
+                        }
+   
+                        if(botRectangleCheck && topRectangleCheck){
+                           // start from top and go down to fill boxes
+                           var start = topEndBufferId.split(" ");
+                           var i = start[0];
+                           var n = start[1];
+                           var m = start[2];
+                           var end = botEndBufferId.split(" ");
+                           var j = end[0];
+                           if(this.state.player % 2 == 0){
+                              for(i; i < j; i++){
+                                 var boxId = i + " " + n;
+                                 var line = i + " " + n + " " + m;
+                                 var box = document.getElementById(boxId);
+                                 if(box.className == "square"){
+                                    document.getElementById(boxId).className = "square-red";
+                                    document.getElementById(line).className = "line-hor-red";
+                                    boxesMade ++;
+                                 }
+                              }
+                              this.setState({redBoxes: this.state.redBoxes + boxesMade});
+                           }
+                           else{
+                              for(i; i < j; i++){
+                                 var boxId = i + " " + n;
+                                 var line = i + " " + n + " " + m;
+                                 var box = document.getElementById(boxId);
+                                 if(box.className == "square"){
+                                    document.getElementById(boxId).className = "square-blue";
+                                    document.getElementById(line).className = "line-hor-blue";
+                                    boxesMade ++;
+                                 }
+                              }
+                              this.setState({blueBoxes: this.state.blueBoxes + boxesMade});
+                           }
+                           this.setState({player: this.state.player++});
+                        }
+                     }
+                  }
+   
+                  else{  
+                     if(oppositeLine != null && oppositeLine.className != "line-ver"){
+                        // go down and check for lines making a rectangle
+                        currentLineId = j + " " + (j+1) + " " + k + " v";
+                        oppositeLineId = j + " " + (j+1) + " " + (k-1) + " v";
+                        botRectangleCheck = true;
+                        topRectangleCheck = true;
+                        while(oppositeLine != null && oppositeLine.className != "line-ver" &&
+                           currentLine != null && currentLine.className != "line-ver" &&
+                           botEndBuffer != null && botEndBuffer.className == "line-hor"){
+                              oppositeLineId = j + " " + (j+1) + " " + (k-1) + " v";
+                              currentLineId = j + " " + (j+1) + " " + k + " v";
+                              botEndBufferId = (j+1) + " " + (k-1) + " " + k;
+                              botEndBuffer = document.getElementById(botEndBufferId);
+                              oppositeLine = document.getElementById(oppositeLineId);
+                              currentLine = document.getElementById(currentLineId);
+                              if(oppositeLine == null || oppositeLine.className == "line-ver" || currentLine == null || currentLine.className == "line-ver"){
+                                 botRectangleCheck = false;
+                              }
+                              else{
+                                 j++;
+                              }
+      
+                           }
+      
+                           // go up and check for lines making a rectangle
+                           j = j1;
+                           currentLineId = j + " " + (j+1) + " " + k + " v";
+                           oppositeLineId = j + " " + (j+1) + " " + (k-1) + " v";
+                           currentLine = document.getElementById(currentLineId);
+                           oppositeLine = document.getElementById(oppositeLineId);
+                           while(oppositeLine != null && oppositeLine.className != "line-ver" &&
+                           currentLine != null && currentLine.className != "line-ver" &&
+                           topEndBuffer != null && topEndBuffer.className == "line-hor"){
+                              oppositeLineId = j + " " + (j+1) + " " + (k-1) + " v";
+                              currentLineId = j + " " + (j+1) + " " + k + " v";
+                              topEndBufferId = j + " " + (k-1) + " " + k;
+                              topEndBuffer = document.getElementById(topEndBufferId);
+                              oppositeLine = document.getElementById(oppositeLineId);
+                              currentLine = document.getElementById(currentLineId);
+                              if(oppositeLine == null || oppositeLine.className == "line-ver" || currentLine == null || currentLine.className == "line-ver"){
+                                 topRectangleCheck = false;
+                              }
+                              else{
+                                 j--;
+                              }
+      
+                           }
+                           if(botRectangleCheck && topRectangleCheck){
+                              // start from top and go down to fill boxes
+                              var start = topEndBufferId.split(" ");
+                              var i = start[0];
+                              var n = start[1];
+                              var m = start[2];
+                              var end = botEndBufferId.split(" ");
+                              var j = end[0];
+                              if(this.state.player % 2 == 0){
+                                 for(i; i < j; i++){
+                                    var boxId = i + " " + n;
+                                    var line = i + " " + n + " " + m;
+                                    document.getElementById(boxId).className = "square-red";
+                                    document.getElementById(line).className = "line-hor-red";
+                                    boxesMade ++;
+                                 }
+                                 this.setState({redBoxes: this.state.redBoxes + boxesMade});
+                              }
+                              else{
+                                 for(i; i < j; i++){
+                                    var boxId = i + " " + n;
+                                    var line = i + " " + n + " " + m;
+                                    document.getElementById(boxId).className = "square-blue";
+                                    document.getElementById(line).className = "line-hor-blue";
+                                    boxesMade++;
+                                 }
+                                 this.setState({blueBoxes: this.state.blueBoxes + boxesMade});
+                              }
+                              this.setState({player: this.state.player++});
+                           }
+                        }
+                  }
                }
             }
 
@@ -831,6 +1083,58 @@ class Board extends React.Component {
          }
          row2.pop();
          row2.pop();
+
+         // row 2 (dot, v-line, square, h-line)
+         for(var y = 0; y < 13; y++){            
+            row3.push(<input type="button" className="dot" onClick={this.handleDotClick} x={3} y={y}/>)
+            var idV = "2 " + "3 " + y + " v";   // row3(up), row3(down), index, indicator
+            row3.push(<span className="line-ver" id={idV}></span>)
+            var idS = "2 " + y;  // row-1, index;
+            row3.push(<span className="square" id={idS}></span>)
+            var idH = "3 " + y + " " + (y+1);   // row, dot1(left), dot2(right)
+            row3.push(<span className="line-hor" id={idH}></span>)
+         }
+         row3.pop();
+         row3.pop();
+
+         // row 2 (dot, v-line, square, h-line)
+         for(var y = 0; y < 13; y++){            
+            row4.push(<input type="button" className="dot" onClick={this.handleDotClick} x={4} y={y}/>)
+            var idV = "3 " + "4 " + y + " v";   // row4(up), row4(down), index, indicator
+            row4.push(<span className="line-ver" id={idV}></span>)
+            var idS = "3 " + y;  // row-1, index;
+            row4.push(<span className="square" id={idS}></span>)
+            var idH = "4 " + y + " " + (y+1);   // row, dot1(left), dot2(right)
+            row4.push(<span className="line-hor" id={idH}></span>)
+         }
+         row4.pop();
+         row4.pop();
+
+         // row 2 (dot, v-line, square, h-line)
+         for(var y = 0; y < 13; y++){            
+            row5.push(<input type="button" className="dot" onClick={this.handleDotClick} x={5} y={y}/>)
+            var idV = "4 " + "5 " + y + " v";   // row5(up), row5(down), index, indicator
+            row5.push(<span className="line-ver" id={idV}></span>)
+            var idS = "4 " + y;  // row-1, index;
+            row5.push(<span className="square" id={idS}></span>)
+            var idH = "5 " + y + " " + (y+1);   // row, dot1(left), dot2(right)
+            row5.push(<span className="line-hor" id={idH}></span>)
+         }
+         row5.pop();
+         row5.pop();
+
+         // row 2 (dot, v-line, square, h-line)
+         for(var y = 0; y < 13; y++){            
+            row6.push(<input type="button" className="dot" onClick={this.handleDotClick} x={6} y={y}/>)
+            var idV = "5 " + "6 " + y + " v";   // row6(up), row6(down), index, indicator
+            row6.push(<span className="line-ver" id={idV}></span>)
+            var idS = "5 " + y;  // row-1, index;
+            row6.push(<span className="square" id={idS}></span>)
+            var idH = "6 " + y + " " + (y+1);   // row, dot1(left), dot2(right)
+            row6.push(<span className="line-hor" id={idH}></span>)
+         }
+         row6.pop();
+         row6.pop();
       }
 
       var gameOver = this.checkWinner();
@@ -864,6 +1168,10 @@ class Board extends React.Component {
             <div className="board-row-top">{row0}</div>
             <div className="board-row">{row1}</div>
             <div className="board-row">{row2}</div>
+            <div className="board-row">{row3}</div>
+            <div className="board-row">{row4}</div>
+            <div className="board-row">{row5}</div>
+            <div className="board-row-bot">{row6}</div>
             <div className="status">
                <span>{redCount}</span>
                <span>{blueCount}</span>
@@ -874,26 +1182,11 @@ class Board extends React.Component {
    }
 
    checkWinner = () => {
-      // go row by row (start at row 1) and determine if there are
-      // any squares that just have the className "square"
-      var gameOver = true;
-
-      var checkRow1 = true;
-      for(var i = 0; i < row1.length; i++){
-         if(row1[i].props.className == "square"){
-            checkRow1 = false;
-         }
-      }
-
-      var checkRow2 = true;
-      for(var i = 0; i < row2.length; i++){
-         if(row2[i].props.className == "square"){
-            checkRow2 = false;
-         }
-      }
-      
-      if(!(checkRow1 & checkRow2)){
-         gameOver = false;
+      // check for a square class
+      var gameOver = false;
+      var squares = document.getElementsByClassName("square");
+      if(squares.length == 0){
+         gameOver = true;
       }
       return gameOver;
    }
