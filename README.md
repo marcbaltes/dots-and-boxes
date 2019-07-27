@@ -1,7 +1,8 @@
 # Dots and Boxes
 
 ### Description
-Based off the Dots and Boxes game you can find pretty much anywhere you want to look. Each player takes turns drawing a line and if that player is able to close off the line and make a square the get a point. Doing so will also allow the player to move again. Whoever has the most points when there are no more squares left wins. This game was made using mostly JavaScript (with the React.js and jQuery libraries). HTML is also used and CSS is used for styling purposes.
+- Based off the Dots and Boxes game you can find pretty much anywhere you want to look. Each player takes turns drawing a line and if that player is able to close off the line and make a square the get a point. Doing so will also allow the player to move again. Whoever has the most points when there are no more squares left wins. 
+- This game was made using JavaScript (with the React.js and jQuery libraries). However, GitHub says that this repo is all HTML because I put the code in a <script> element so that you can play the game locally without having to set up a server. CSS is also used for styling purposes.
 >  Note: The code itself is probably not as optimal as it could be considering that I made it when I had just learned React.js. However, it works so ¯\\‗(ツ)‗/¯
 ### Setup
 - Clone or download this repo and make sure all the files are in the same folder 
